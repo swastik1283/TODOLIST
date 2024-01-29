@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>To-Do List App</h1>
+        <div id="tasks-container">
+            {% for task in tasks %}
+                <div class="task {% if task.completed %}completed{% endif %}">
+                    <span>{{ task.task }}</span>
+                    {% if not task.completed %}
+                        <button onclick="markCompleted({{ loop.index - 1 }})">Mark Completed</button>
+                    {% endif %}
+                    <button onclick="removeTask({{ loop.index - 1 }})">Remove</button>
+                </div>
+            {% endfor %}
+        </div>
+        <div id="add-task-container">
+            <input type="text" id="taskInput" placeholder="Enter task...">
+            <button onclick="addTask()">Add Task</button>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
